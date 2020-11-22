@@ -1,9 +1,4 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  OnChanges,
-} from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
 export interface CardInfo {
   name: string;
@@ -15,10 +10,15 @@ export interface CardInfo {
   reviewsCount?: number;
 }
 
+interface FlagOffset {
+  top: number;
+  left: number;
+}
+
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
-  styleUrls: ['./card.component.scss']
+  styleUrls: ['./card.component.scss'],
 })
 export class CardComponent implements OnInit, OnChanges {
   @Input() card: CardInfo = {
@@ -44,10 +44,8 @@ export class CardComponent implements OnInit, OnChanges {
     ],
   };
 
-  flagsOffset = [];
-  constructor() {
-
-  }
+  flagsOffset: FlagOffset[] = [];
+  constructor() {}
   ngOnChanges() {
     this.setFlagOffsetStyle();
   }
@@ -75,21 +73,41 @@ export class CardComponent implements OnInit, OnChanges {
 
     this.flagsOffset = [];
 
-    for ( let i = 0; i <= HALF_ARRAY_LENGTH; i++ ) {
+    for (let i = 0; i <= HALF_ARRAY_LENGTH; i++) {
       this.flagsOffset.push({
-        // tslint:disable-next-line:max-line-length
-        top: CENTRED_TOP - DISTANCE_FROM_CENTER_OF_AVATAR_TO_CENTRED_CIRCLE * Math.sin(Math.abs(i - HALF_ARRAY_LENGTH ) * DEGREES_20_TO_RADIAN - DEGREES_20_TO_RADIAN / 2 * IS_FLAG_COUNT_ODD),
-        // tslint:disable-next-line:max-line-length
-        left: DISTANCE_FROM_CENTER_OF_AVATAR_TO_CENTRED_CIRCLE - DISTANCE_FROM_CENTER_OF_AVATAR_TO_CENTRED_CIRCLE * Math.cos(Math.abs(HALF_ARRAY_LENGTH - i) * DEGREES_20_TO_RADIAN - DEGREES_20_TO_RADIAN / 2 * IS_FLAG_COUNT_ODD),
+        top:
+          CENTRED_TOP -
+          DISTANCE_FROM_CENTER_OF_AVATAR_TO_CENTRED_CIRCLE *
+            Math.sin(
+              Math.abs(i - HALF_ARRAY_LENGTH) * DEGREES_20_TO_RADIAN -
+                (DEGREES_20_TO_RADIAN / 2) * IS_FLAG_COUNT_ODD
+            ),
+        left:
+          DISTANCE_FROM_CENTER_OF_AVATAR_TO_CENTRED_CIRCLE -
+          DISTANCE_FROM_CENTER_OF_AVATAR_TO_CENTRED_CIRCLE *
+            Math.cos(
+              Math.abs(HALF_ARRAY_LENGTH - i) * DEGREES_20_TO_RADIAN -
+                (DEGREES_20_TO_RADIAN / 2) * IS_FLAG_COUNT_ODD
+            ),
       });
     }
 
-    for ( let i = HALF_ARRAY_LENGTH + 1; i < this.card.flags.length; i++ ) {
+    for (let i = HALF_ARRAY_LENGTH + 1; i < this.card.flags.length; i++) {
       this.flagsOffset.push({
-        // tslint:disable-next-line:max-line-length
-        top: CENTRED_TOP + DISTANCE_FROM_CENTER_OF_AVATAR_TO_CENTRED_CIRCLE * Math.sin(Math.abs(i - HALF_ARRAY_LENGTH ) * DEGREES_20_TO_RADIAN + DEGREES_20_TO_RADIAN / 2 * IS_FLAG_COUNT_ODD),
-        // tslint:disable-next-line:max-line-length
-        left: DISTANCE_FROM_CENTER_OF_AVATAR_TO_CENTRED_CIRCLE - DISTANCE_FROM_CENTER_OF_AVATAR_TO_CENTRED_CIRCLE * Math.cos(Math.abs(HALF_ARRAY_LENGTH - i) * DEGREES_20_TO_RADIAN + DEGREES_20_TO_RADIAN / 2 * IS_FLAG_COUNT_ODD),
+        top:
+          CENTRED_TOP +
+          DISTANCE_FROM_CENTER_OF_AVATAR_TO_CENTRED_CIRCLE *
+            Math.sin(
+              Math.abs(i - HALF_ARRAY_LENGTH) * DEGREES_20_TO_RADIAN +
+                (DEGREES_20_TO_RADIAN / 2) * IS_FLAG_COUNT_ODD
+            ),
+        left:
+          DISTANCE_FROM_CENTER_OF_AVATAR_TO_CENTRED_CIRCLE -
+          DISTANCE_FROM_CENTER_OF_AVATAR_TO_CENTRED_CIRCLE *
+            Math.cos(
+              Math.abs(HALF_ARRAY_LENGTH - i) * DEGREES_20_TO_RADIAN +
+                (DEGREES_20_TO_RADIAN / 2) * IS_FLAG_COUNT_ODD
+            ),
       });
     }
   }
