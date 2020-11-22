@@ -1,0 +1,43 @@
+<div class="card-wrapper flex-wrap">
+  <span class="material-icons edit-card"> edit </span>
+  <div class="card-image-wrapper flex-wrap">
+    <div class="card-flags">
+      <img
+        *ngFor="let flag of card.flags; let i = index"
+        [src]="flag"
+        [ngStyle]="{'top.px': flagsOffset[i].top, 'left.px': flagsOffset[i].left}"
+      />
+    </div>
+    <div class="card-avatar">
+      <span class="material-icons edit-avatar"> edit </span>
+      <img [src]="card.avatar ? card.avatar : '/assets/images/avatar.png'" />
+    </div>
+  </div>
+  <div class="card-review-info">
+    <div class="card-review-name">
+      {{ card.name }}
+      <span class="material-icons verified-user"> verified_user </span>
+    </div>
+    <div class="card-rating-wrapper flex-wrap margin-top-10">
+      <!-- TODO: create component -->
+      <div class="card-rating">
+        <span
+          class="material-icons"
+          *ngFor="let star of ' '.repeat(5).split(''); let i = index"
+        >
+          {{ getStarView(i) }}
+        </span>
+      </div>
+      <a class="card-reviews"
+        >{{ card.reviewsCount }} Review{{ card.reviewsCount === 1 ? "" : "s" }}
+      </a>
+    </div>
+    <div class="card-review-description margin-top-10">
+      {{ card.description }}
+    </div>
+    <div class="location-wrapper flex-wrap margin-top-5">
+      <span class="material-icons"> location_on </span>
+      <div class="location-text">{{ card.location }}</div>
+    </div>
+  </div>
+</div>
