@@ -46,12 +46,12 @@ export class CardComponent implements OnInit, OnChanges {
 
   flagsOffset = [];
   constructor() {
-    this.setFlagOffsetStyle();
-  }
-  ngOnChanges() {
-    // console.log('12')
 
   }
+  ngOnChanges() {
+    this.setFlagOffsetStyle();
+  }
+
   ngOnInit(): void {
     this.setFlagOffsetStyle();
   }
@@ -66,7 +66,6 @@ export class CardComponent implements OnInit, OnChanges {
     return 'star';
   }
 
-  // handles 9 flags and less
   setFlagOffsetStyle(): void {
     const CENTRED_TOP = 91;
     const IS_FLAG_COUNT_ODD = this.card.flags.length % 2 === 0 ? 1 : 0;
